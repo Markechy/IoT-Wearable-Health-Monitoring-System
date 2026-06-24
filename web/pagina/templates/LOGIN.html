@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Login Form</title>
+    <link href="css/master.css" rel="stylesheet" type="text/css">
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ff0000, #ff9900, #ffeb3b, #4caf50, #2196f3, #9c27b0, #ff00ff);
+            background-size: 600% 600%;
+            animation: gradient 10s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 100%;
+            }
+            100% {
+                background-position: 100% 0%;
+            }
+        }
+
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #000000;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            position: relative;
+            font-size: 42px;
+            letter-spacing: 4px;
+            margin-top: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            color: #ffd700;
+        }
+
+        h1::before {
+            content: attr(title);
+            position: absolute;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff;
+            animation: neon 1.5s ease-in-out infinite alternate;
+        }
+
+        label, input {
+            color: gray;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="submit"] {
+            color: black;
+        }
+
+        a {
+            color: white;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: red;
+        }
+
+        @keyframes neon {
+            to {
+                opacity: 0.8;
+                text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff, 0 0 20px #00ffff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1 title="Iniciar Sesión">Iniciar Sesión</h1>
+        <form method="POST">
+            <br><br>
+            <label for="username">Id Usuario</label>
+            <input id="user" name="user" type="text" placeholder="Ingresa el Id de tu Usuario">
+            <br><br><br>
+            <input type="submit" value="Ingresar" >
+            <br><br>
+            <a href="/sign-up">Crear Cuenta</a>
+        </form>
+    </div>
+</body>
+</html>

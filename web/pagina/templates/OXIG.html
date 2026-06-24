@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Oxigenacion</title>
+    <style>
+        body {
+            background-color: #282c34;
+            color: #61dafb; /* Azul neon */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #21252b;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            display: block;
+            margin-top: 20px;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+            max-width: 80%; /* Reducido el ancho para mantener la estética */
+            box-sizing: border-box;
+        }
+
+        #goToMenuButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            background-color: #61dafb; /* Azul neon */
+            color: #282c34;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #goToMenuButton:hover {
+            background-color: #2188e6; /* Azul neon más intenso */
+        }
+
+        h1 {
+            color: #61dafb; /* Azul neon */
+            text-shadow: 0 0 10px rgba(97, 218, 251, 0.8), 0 0 20px rgba(97, 218, 251, 0.8);
+            margin: 0;
+        }
+
+        h1.neon {
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.8), 0 0 20px rgba(0, 191, 255, 0.8);
+            animation: neon 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes neon {
+            to {
+                opacity: 0.8;
+                text-shadow: 0 0 5px rgba(0, 191, 255, 0.8), 0 0 10px rgba(0, 191, 255, 0.8), 0 0 15px rgba(0, 191, 255, 0.8);
+            }
+        }
+
+        /* Estilos para el selector */
+        #selector-container {
+            margin-top: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .selector {
+            padding: 10px;
+            border: 1px solid #61dafb; /* Azul neon */
+            background-color: #61dafb; /* Azul neon */
+            color: #282c34;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <br>
+        <h1 class="neon">Oxigenación</h1>
+        <a href="/" id="goToMenuButton">Ir a Menú</a>
+    </header>
+    <canvas id="oxigenacionChart" width="400" height="200"></canvas>
+    <form method="POST">
+        <!-- Selector -->
+        <div id="selector-container">
+            <select name="period_selector" class="selector" onchange="seleccionarPeriodo(this.value)">
+                <option value="semana">Ultima semana</option>
+                <option value="dia">Ultimo día</option>
+                <option value="hora">Ultima hora</option>
+            </select>
+        </div>
+        <br>
+        <center>
+            <button type="submit">Submit</button>
+        </center>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Datos de ejemplo para oxigenación
+            var datos = {
+                labels: {{etiquetas|safe}},
+                datasets: [{
+                    label: 'Nivel de Oxigenación',
+                    borderColor: '#61dafb', /* Azul neon */
+                    data: {{datos_oxi}},
+                    fill: false
+                }]
+            };
+
+            // Configuración del gráfico
+            var ctx = document.getElementById('oxigenacionChart').getContext('2d');
+            var oxigenacionChart = new Chart(ctx, {
+                type: 'line',
+                data: datos,
+                options: {
+                    scales: {
+                        x: [{
+                            type: 'linear',
+                            position: 'bottom',
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Tiempo (segs)'
+                            }
+                        }],
+                        y: [{
+                            type: 'linear',
+                            position: 'left',
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Nivel de Oxígeno (%)'
+                            }
+                        }]
+                    }
+                }
+            });
+
+            function seleccionarPeriodo(periodo) {
+                // Puedes hacer algo con el periodo seleccionado, como actualizar el gráfico o realizar alguna acción en JavaScript.
+                console.log('Periodo seleccionado:', periodo);
+            }
+        });
+    </script>
+</body>
+</html>
